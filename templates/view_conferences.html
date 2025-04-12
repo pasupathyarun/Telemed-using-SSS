@@ -1,0 +1,23 @@
+<script src="https://cdn.tailwindcss.com"></script>
+
+<div class="max-w-2xl mx-auto mt-8 p-6 bg-white shadow-lg rounded-lg border border-gray-200">
+    <h2 class="text-2xl font-bold text-center text-gray-800 mb-6">🎥 Your Conferences</h2>
+
+    <ul class="space-y-4">
+        {% for conference in conferences %}
+            <li class="flex flex-col sm:flex-row justify-between items-center p-4 bg-gray-100 shadow-md rounded-lg border border-gray-300">
+                <div class="text-gray-700">
+                    <p class="text-lg font-semibold">🔹 Meeting ID: <span class="font-normal">{{ conference.meeting_id }}</span></p>
+                    <p class="text-md">📅 Date: <span class="font-medium">{{ conference.scheduled_date }}</span></p>
+                    <p class="text-md">⏰ Time: <span class="font-medium">{{ conference.scheduled_time }}</span></p>
+                </div>
+                <a href="{% url 'join_conference' conference.meeting_id %}" 
+                   class="mt-3 sm:mt-0 px-6 py-2 bg-blue-600 text-white text-lg font-semibold rounded-lg shadow-md transition-all duration-300 hover:bg-blue-700 hover:shadow-lg">
+                    🎬 Join
+                </a>
+            </li>
+        {% empty %}
+            <p class="text-gray-500 text-center">No conferences scheduled yet. 📅</p>
+        {% endfor %}
+    </ul>
+</div>

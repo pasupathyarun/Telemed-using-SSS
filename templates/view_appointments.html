@@ -1,0 +1,16 @@
+<h2 class="text-2xl font-bold mb-4">Your Appointments</h2>
+<script src="https://cdn.tailwindcss.com"></script>
+<ul class="space-y-4">
+    {% for appointment in appointments %}
+        <li class="p-4 bg-white shadow-md rounded-lg">
+            <p><strong>Doctor:</strong> {{ appointment.doctor.username }}</p>
+            <p><strong>Date:</strong> {{ appointment.date }}</p>
+            <p><strong>Time:</strong> {{ appointment.time }}</p>
+            <p><strong>Status:</strong> 
+                <span class="font-semibold {% if appointment.status == 'Pending' %} text-yellow-500 {% elif appointment.status == 'Confirmed' %} text-green-500 {% else %} text-red-500 {% endif %}">
+                    {{ appointment.status }}
+                </span>
+            </p>
+        </li>
+    {% endfor %}
+</ul>

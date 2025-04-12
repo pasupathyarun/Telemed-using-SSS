@@ -1,0 +1,16 @@
+{% extends 'main.html' %}
+{% block title %}View Each File{% endblock title %}
+{% load custom_filters %}
+{% block content %}
+<div class="h-[90vh] w-full flex items-center justify-center relative">
+    <img src="/media/another-bg.jpg" alt="" class="h-[90vh] w-screen object-cover absolute top-0 left-0">
+   
+    <form class="w-[40vw] absolute right-[15%] top-1/2 -translate-y-1/2 bg-white rounded-xl p-8 shadow-xl z-50 flex flex-col gap-6" method="POST">
+        {% csrf_token %}
+        <label class="text-3xl font-bold">Enter Partial Secret Key</label>
+        <p class=" text-sm text-black">Key for this file - {{temp_key}}</p>
+        <input type="text" name="partial_key" class="border border-black rounded-lg p-2 px-4">
+        <button class="text-white font-semibold px-6 py-2 bg-emerald-500 hover:bg-emerald-600 cursor-pointer rounded-lg" type="submit">Upload</button>
+    </form>
+</div>
+{% endblock content %}

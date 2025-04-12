@@ -1,0 +1,41 @@
+<script src="https://cdn.tailwindcss.com"></script>
+
+<div class="max-w-3xl mx-auto mt-8 p-6 bg-white shadow-lg rounded-lg border border-gray-200">
+    <h2 class="text-2xl font-bold text-center text-gray-800 mb-6">🗓 Manage Appointments</h2>
+
+    {% if appointments %}
+        <ul class="space-y-4">
+            {% for appointment in appointments %}
+                <li class="flex flex-col sm:flex-row justify-between items-center p-4 bg-gray-100 shadow-md rounded-lg border border-gray-300">
+                    <div class="text-gray-700 w-full sm:w-3/4">
+                        <p class="text-lg font-semibold">🏥 Patient: <span class="font-normal">{{ appointment.patient.username }}</span></p>
+                        <p class="text-md">📅 Date: <span class="font-medium">{{ appointment.date }}</span></p>
+                        <p class="text-md">⏰ Time: <span class="font-medium">{{ appointment.time }}</span></p>
+                        <p class="text-md">📝 Status: 
+                            <span class="font-semibold 
+                                {% if appointment.status == 'Pending' %} text-yellow-500 
+                                {% elif appointment.status == 'Confirmed' %} text-green-500 
+                                {% else %} text-red-500 {% endif %}">
+                                {{ appointment.status }}
+                            </span>
+                        </p>
+                    </div>
+                    
+                    <!-- Action Buttons -->
+                    <form method="POST" class="flex space-x-2 mt-4 sm:mt-0">
+                        {% csrf_token %}
+                        <input type="hidden" name="appointment_id" value="{{ appointment.id }}">
+                        <button type="submit" name="action" value="confirm" class="px-6 py-2 bg-green-600 text-white text-lg font-semibold rounded-lg shadow-md transition-all duration-300 hover:bg-green-700 hover:shadow-lg">
+                            ✅ Confirm
+                        </button>
+                        <button type="submit" name="action" value="cancel" class="px-6 py-2 bg-red-600 text-white text-lg font-semibold rounded-lg shadow-md transition-all duration-300 hover:bg-red-700 hover:shadow-lg">
+                            ❌ Cancel
+                        </button>
+                    </form>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p class="text-gray-500 text-center mt-6">No appointments available. 📅</p>
+    {% endif %}
+</div>
